@@ -1,0 +1,27 @@
+version: "3"
+services:
+  postgres:
+    image: 'postgres:14.6-alpine'
+    container_name: local-postgre
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: somedbname
+    ports:
+      - "5432:5432"
+    volumes:
+      - type: bind
+        source: /home/atrariksa/Desktop/docker/postgresql/data
+        target: /var/lib/postgresql/data
+    restart: on-failure
+
+  redis:
+    image: 'redis:5-alpine'
+    command: redis-server
+    container_name: local-redis
+    ports:
+      - 6379:6379
+    volumes:
+      - type: bind
+        source: /home/atrariksa/Desktop/docker/redis/data
+        target: /data
